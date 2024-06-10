@@ -1,0 +1,129 @@
+# Copyright (c) 2017, Daniel Liew
+# This file is covered by the license in LICENSE.txt
+title: "Result Info schema"
+description: |
+  This schema (written in YAML) describes a structued data format to be checked
+  by [json-schema](http://json-schema.org/). This data format (typically
+  written in YAML for convenience) describes information about running a
+  benchmark.
+__version__: 0
+"$schema": "http://json-schema.org/draft-04/schema#"
+definitions:
+  numberOrNull: &numberOrNull
+    anyOf:
+      - type: number
+      - type: "null"
+  integerOrNull: &integerOrNull
+    anyOf:
+      - type: number
+      - type: "null"
+  sat_str: &sat_string
+    type: string
+    enum: [ "sat", "unsat", "unknown"]
+type: object
+additionalProperties: false
+properties:
+  results:
+    type: array
+    items:
+      anyOf:
+        -
+          # This is the minimum amount of information that should be
+          # produced by a runner.
+          type: object
+          # Subclasses of RunnerBase might add additional properties
+          additionProperties: true
+          properties:
+            benchmark:
+              type: string
+            sat:
+              oneOf:
+                - *sat_string
+                # Merge format
+                - type: array
+                  items: *sat_string
+            expected_sat: *sat_string
+            wallclock_time:
+              oneOf:
+                - type: number
+                # Merge format
+                - type: array
+                  items:
+                    type: number
+            working_directory:
+              oneOf:
+                - type: string
+                # Merge format
+                - type: array
+                  items:
+                    type: string
+            exit_code:
+              oneOf:
+                - *integerOrNull
+                # Merge format
+                - type: array
+                  items:
+                    *integerOrNull
+            out_of_memory:
+              oneOf:
+                - type: boolean
+                # Merge format
+                - type: array
+                  items:
+                    type: boolean
+            stdout_log_file:
+              oneOf:
+                - type: string
+                # Merge format
+                - type: array
+                  items:
+                    type: string
+            stderr_log_file:
+              oneOf:
+                - type: string
+                # Merge format
+                - type: array
+                  items:
+                    type: string
+            user_cpu_time:
+              oneOf:
+                - *numberOrNull
+                # Merge format
+                - type: array
+                  items:
+                    *numberOrNull
+            sys_cpu_time:
+              oneOf:
+                - *numberOrNull
+                # Merge format
+                - type: array
+                  items:
+                    *numberOrNull
+            backend_timeout:
+              oneOf:
+                - type: boolean
+                # Merge format
+                - type: array
+                  items:
+                    type: boolean
+            # Indicates if the result is a merged result from several other runs
+            merged_result:
+              type: boolean
+        -
+          # If an error occurs the problem will be expressed in this format.
+          type: object
+          additionalProperties: false
+          properties:
+            error:
+              type: string
+            working_directory:
+              type: string
+  schema_version:
+    type: integer
+    minimum: 0
+  misc:
+    # Optional field to store arbitary data
+    type: object
+required:
+  - results
+  - schema_version

@@ -1,0 +1,34 @@
+# vim: set sw=2 ts=2 softtabstop=2 expandtab:
+runner: MathSat5
+runner_config:
+  # This is the tool_path inside the container
+  tool_path: "/home/user/mathsat/bin/mathsat"
+  max_memory: 10240 # 10 GiB
+  max_time: 60 # 15 minutes
+  additional_args:
+    - "-input=smt2"
+    # I'm paranoid. Fix the random seed
+    - "-random_seed=1"
+    - "-theory.bv.div_by_zero_mode=0"
+    # Options are taken from "configurations/smtcomp2015_main.txt"
+    # that is included with MathSAT5 distribution. These are options
+    # are for QF_BV
+    - "-theory.eq_propagation=false"
+    - "-theory.la.enabled=false"
+    - "-theory.arr.enabled=false"
+    - "-theory.bv.bit_blast_mode=2"
+    - "-dpll.preprocessor.mode=1"
+  backend:
+    name: "Docker"
+    config:
+      # MathSAT5 5.5.1 Docker image
+      image: "mathsat-5.5.1:ubuntu1804"
+      skip_tool_check: True # Faster
+      # Use same UID/GID inside container as outside so the container
+      # can write to our files.
+      user: "$HOST_USER"
+      docker_stats_on_exit_shim: true
+      memory_swappiness: 1 # Limit swapping as much as possible but without completely disabling it
+      # Try to avoid stdout being dropped
+      stdout_and_stderr_bypass: true
+

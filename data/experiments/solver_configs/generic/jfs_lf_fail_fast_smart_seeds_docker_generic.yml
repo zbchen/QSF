@@ -1,0 +1,45 @@
+# vim: set sw=2 ts=2 softtabstop=2 expandtab:
+runner: JFS
+runner_config:
+  # This is the tool_path inside the container
+  tool_path: "/home/user/jfs/build/bin/jfs"
+  max_memory: 10240 # 10 GiB
+  max_time: 60 # 15 minutes
+  additional_args:
+#    - "-max-time=600" # Soft timeout
+#    - "-v=1" # We want to see messages written to stderr
+#    - "-redirect-clang-output=1" # We want Clang output to get redirected
+#    - "-redirect-libfuzzer-output=1" # We want LibFuzzer output to get redirect
+    # Don't pass these as the JFSRunner does it already
+    #- "-output-dir=jfs_wd" # Consistent output directory name0
+    #- "-keep-output-dir" # Make sure we keep the output directory
+    #- "-stats-file=stats.yml" # Log stats
+    - "-branch-encoding=fail-fast" # Use `fail-fast` (ff) branch encoding
+    - "-O0" # Don't optimize generated code
+    # Record useful stats
+#    - "-record-max-num-satisfied-constraints"
+#    - "-record-num-inputs"
+#    - "-record-num-wrong-sized-inputs"
+    # Be explicit about the seeds we want to use
+    - "-sm-all-ones-seed"
+    - "-sm-all-zeros-seed"
+    - "-sm-special-constant-seeds=true"
+    - "-sm-max-num-seed=100"
+    # Not sure if we should keep this but it will be useful if
+    # JFS gets killed for some reason
+    - "-trace-max-num-satisfied-constraints"
+    # Use LibFuzzer (lf)
+    - "-libfuzzer-pure-random=false"
+  backend:
+    name: "Docker"
+    config:
+      image: "dockeryangxu/jfs-2019:ubuntu1804"
+      skip_tool_check: True # Faster
+      # Use same UID/GID inside container as outside so the container
+      # can write to our files.
+      user: "$HOST_USER"
+      docker_stats_on_exit_shim: true
+      memory_swappiness: 1 # Limit swapping as much as possible but without completely disabling it
+      # Try to avoid stdout being dropped
+      stdout_and_stderr_bypass: true
+

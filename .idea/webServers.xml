@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="26d12399-64ee-4db7-a637-ee4e91177c79" name="qsatServer">
+        <fileTransfer rootFolder="/home/aaa" accessType="SFTP" host="39.98.47.117" port="22" sshConfigId="b31383ae-851d-4044-beb0-a65260159e41" sshConfig="aaa@39.98.47.117:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

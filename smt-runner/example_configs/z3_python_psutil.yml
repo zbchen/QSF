@@ -1,0 +1,12 @@
+# vim: set sw=2 ts=2 softtabstop=2 expandtab:
+runner: Z3
+runner_config:
+  # This is the tool_path inside the container
+  tool_path: "/home/user/dev/z3/build/z3"
+  max_memory: 4096
+  max_time: 5
+  additional_args: []
+  backend:
+    name: "PythonPsUtil"
+    config:
+      memory_limit_poll_time_period: 0.1

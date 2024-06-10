@@ -1,0 +1,7 @@
+*.log
+*.tar.gz
+selected_smtlib2/
+runs/
+build/
+install/
+solvers/
