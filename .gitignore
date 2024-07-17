@@ -13,6 +13,7 @@ install/
 solvers/
 
 #file
+getprogramYml.py
 qf_nra-optsat-nra.yml
 cmp-output_sat_yml.py
 output_filtered.py
