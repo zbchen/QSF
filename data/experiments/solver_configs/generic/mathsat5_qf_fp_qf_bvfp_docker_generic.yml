@@ -4,7 +4,7 @@ runner_config:
   # This is the tool_path inside the container
   tool_path: "/home/user/mathsat/bin/mathsat"
   max_memory: 10240 # 10 GiB
-  max_time: 60 # 15 minutes
+  max_time: 600 # 15 minutes
   additional_args:
     - "-input=smt2"
     # I'm paranoid. Fix the random seed
@@ -36,7 +36,7 @@ runner_config:
     name: "Docker"
     config:
       # MathSAT5 5.5.1 Docker image
-      image: "dockeryangxu/mathsat-5.5.1:ubuntu1804"
+      image: "dockerqsf/mathsat-5.5.1:ubuntu1804"
       skip_tool_check: True # Faster
       # Use same UID/GID inside container as outside so the container
       # can write to our files.

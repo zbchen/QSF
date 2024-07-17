@@ -35,11 +35,12 @@ solverY="${1}"
 shift
 
 TOOL_OPTS=( \
-  --max-exec-time 60 \
+  --max-exec-time 600 \
   --annotate \
   --true-type-fonts \
 #  --annotate-use-legacy-values \
   --annotate-timeout-point \
+  --output "/home/aaa/PlatQSF/data/experiments/result/${bset}/qsf_${solverY}_program_600.pdf" \
 )
 TOOL_OPTS+=("$@")
 

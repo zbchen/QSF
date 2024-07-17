@@ -7,17 +7,18 @@
 # List of solvers to use.
 # Look at `get_solver_config()` for the valid solver names.
 solvers=( \
+#  z3_nra \
   z3 \
   cvc5 \
   mathsat5 \
   bitwuzla \
   colibri \
-#  jfs_lf_fail_fast \
+##  jfs_lf_fail_fast \
   jfs_lf_fail_fast_smart_seeds \
-  ol1v3r \
-  coral_pso \
-#  coral_avm \
-  xsat \
+#  ol1v3r \
+#  coral_pso \
+##  coral_avm \
+#  xsat \
   gosat \
   optsat \
   optsatBitwuzla \
@@ -49,15 +50,17 @@ fi
 #        QF_FP_ramalho \
 #        QF_FP_schanda)
 #bsets=(smtlib_qf_fp)
-#bsets=(smtlib_qf_fp_600)
-bsets=(program_qf_fp)
+bsets=(smtlib_qf_fp_600)
+#bsets=(program_qf_fp)
 #bsets=(program_qf_fp_600)
 #bsets=(gsl_elementary gsl_complex gsl_sf gsl_integration gsl_ploy gsl_odeiv gsl_fit gsl_cdf)
+#bsets=(smtlib_qf_nra)
 
 # List of runs to perform.
 # It is assumed that the list is a list of integers.
 #ns=(0 1 2 3 4)
 ns=(0 1 2 3 4 5 6 7 8 9)
+#ns=(0)
 
 SCRIPT_DIR="$( cd ${BASH_SOURCE[0]%/*} ; echo $PWD )"
 #INVOCATIONS_DIR="${SCRIPT_DIR}/../benchmarks/3-stratified-random-sampling"
@@ -97,11 +100,14 @@ function get_benchmark_base() {
      smtlib_qf_fp*)
        echo "${base_dir}/smtlib_qf_fp"
      ;;
+     smtlib_qf_nra*)
+       echo "${base_dir}/smtlib_qf_nra"
+     ;;
      qf_bvfp)
        # We used a patched set to workaround bugs in Colibri's SMT-LIB parser
        echo "${base_dir}/patched_qf_bvfp/"
      ;;
-   *)
+     *)
      echo "Unrecognised bset \"${bset}\""
      exit 1
    esac
@@ -144,6 +150,9 @@ function get_invocation_info() {
       ;;
     smtlib_qf_fp*)
         echo "${INVOCATIONS_DIR}/smtlib_qf_fp/smtlib_qf_fp.yml"
+      ;;
+    smtlib_qf_nra*)
+        echo "${INVOCATIONS_DIR}/smtlib_qf_nra/smtlib_qf_nra.yml"
       ;;
     gsl_elementary)
       echo "${INVOCATIONS_DIR}/program_qf_fp/output_files/gsl_elementary.yml"
@@ -197,6 +206,9 @@ function get_solver_config() {
   case "${solver}" in
     z3)
       echo "${CONFIG_ROOT}/z3_docker_generic.yml"
+    ;;
+    z3_nra)
+      echo "${CONFIG_ROOT}/z3_nlsat_docker_generic.yml"
     ;;
     mathsat5)
       case "${bset}" in
@@ -269,18 +281,7 @@ function get_solver_config() {
       esac
     ;;
     optsat)
-      case "${bset}" in
-        qf_bv)
-          # Not supported by goSAT.
-          echo "SKIP"
-        ;;
-        qf_fp|qf_bvfp|program_qf_fp*|smtlib_qf_fp*|gsl_*)
-          echo "${CONFIG_ROOT}/optsat_docker_generic.yml"
-        ;;
-        *)
-          echo "Unrecognised bset \"${bset}\""
-          exit 1
-      esac
+      echo "${CONFIG_ROOT}/optsat_docker_generic.yml"
     ;;
     ol1v3r)
       case "${bset}" in
@@ -349,6 +350,9 @@ function get_solver_name() {
   case "${solver}" in
     z3)
       echo "Z3"
+    ;;
+    z3_nra)
+      echo "Z3_nra"
     ;;
     mathsat5)
       echo "MathSAT5"

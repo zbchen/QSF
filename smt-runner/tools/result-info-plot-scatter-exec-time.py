@@ -10,6 +10,7 @@ add_smtrunner_to_module_search_path()
 from smtrunner import ResultInfo, DriverUtil, ResultInfoUtil, analysis, event_analysis
 import smtrunner.util
 import matplotlib.pyplot as plt
+import numpy as np
 
 import argparse
 import json
@@ -162,7 +163,7 @@ def main(args):
     x_lt_y_keys = set()
     x_eq_y_keys = set()
     x_eq_y_and_is_timeout_keys = set()
-
+    cnt = 0
     for key, raw_result_info_list in sorted(key_to_results_infos.items(), key=lambda kv:kv[0]):
         _logger.info('Ranking on "{}" : '.format(key))
         indices_to_use = []
@@ -229,6 +230,8 @@ def main(args):
         y_scatter_higher_error = y_scatter_point_bounds[2] - y_scatter_point_bounds[1]
         assert y_scatter_higher_error >= 0
 
+        print(cnt)
+        cnt += 1
         x_scatter_points.append(x_scatter_point)
         y_scatter_points.append(y_scatter_point)
         # Error bar points
@@ -291,9 +294,34 @@ def main(args):
     print("# incomparable: {}".format(len(bounds_incomparable_keys)))
     print("# of x = y and is timeout: {}".format(len(x_eq_y_and_is_timeout_keys)))
 
+    # print(x_scatter_points)
+    # print(y_scatter_points)
+    # print(len(x_scatter_points),len(y_scatter_points))
+    x_time_mean = np.mean(x_scatter_points, 0)
+    y_time_mean = np.mean(y_scatter_points, 0)
+    print(x_time_mean, y_time_mean, y_time_mean/x_time_mean)
+    x_a = 0
+    y_a = 0
+    cnt = 0;
+    for i,v in enumerate(x_scatter_points):
+        x_v = x_scatter_points[i]
+        y_v = y_scatter_points[i]
+        if x_v>=60:
+            continue
+        x_a += x_v
+        y_a += y_v
+        cnt += 1
+    # xx_a = np.power(x_a, len(x_scatter_points))
+    # yy_a = np.power(y_a, len(y_scatter_points))
+    x_avg = x_a/cnt
+    y_avg = y_a/cnt
+    print(x_avg, y_avg, y_avg/x_avg)
+
     # Now plot
-    extend = 5 # modify yangxu
-    tickFreq = 5 # modify yangxu
+    # extend = 5  # modify yangxu
+    # tickFreq = 5  # modify yangxu
+    extend = 50 # modify yangxu
+    tickFreq = 50 # modify yangxu
     assert len(x_scatter_points) == len(y_scatter_points)
     fig, ax = plt.subplots()
     fig.patch.set_alpha(0.0) # Transparent
@@ -353,12 +381,14 @@ def main(args):
 
         ax.annotate(
             '{}'.format(x_lt_value_to_display),
-            xy=(20,40), # modified yangxu
+            # xy=(20, 40),  # modified yangxu
+            xy=(200,400), # modified yangxu
             fontsize=40
         )
         ax.annotate(
             '{}'.format(x_gt_value_to_display),
-            xy=(40,20), # modified yangxu
+            # xy=(20, 40),  # modified yangxu
+            xy=(400,200), # modified yangxu
             fontsize=40
         )
 

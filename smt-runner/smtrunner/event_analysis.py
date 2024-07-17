@@ -76,68 +76,92 @@ def merge_aggregate_events(events):
     # Handle mix of sat and unsat_but_expected_sat
     sat_count = len(list(filter(lambda tag: tag == 'sat', events)))
     unsat_but_expected_sat_count = len(list(filter(lambda tag: tag == 'unsat_but_expected_sat', events)))
-
-    if sat_count > 0 and unsat_but_expected_sat_count > 0 and (sat_count + unsat_but_expected_sat_count) == len(events):
-        # This is bad behaviour and is for XSat. Penalise heavily by saying
-        # unsat_but_expected_sat
-        return ('unsat_but_expected_sat', True)
-
-    # Handle mix of sat and timeout
-    timeout_count = len(list(filter(lambda tag: tag == 'timeout', events)))
-    if (timeout_count + sat_count) == len(events):
-        return ('sat', True)
-
-    # Handle mix of sat and gosat_unknown
-    gosat_unknown_count = len(list(filter(lambda tag: tag == 'gosat_unknown', events)))
-    if (gosat_unknown_count + sat_count) == len(events):
-        return ('sat', True)
-    if (timeout_count + gosat_unknown_count) == len(events): # add by yx
-        if timeout_count >= gosat_unknown_count:
-            return ('timeout', True)
-        else:
-            return ('gosat_unknown_count', True)
-
-    optsat_unknown_count = len(list(filter(lambda tag: tag == 'optsat_unknown', events)))
-    if (optsat_unknown_count + sat_count) == len(events):
-        return ('sat', True)
-
-    # Handle mix of timeout and soft_timeout
+    timeout_count = len(list(filter(lambda tag: tag == 'timeout', events))) # add by yx
     soft_timeout_count = len(list(filter(lambda tag: tag == 'soft_timeout', events)))
-    if (timeout_count + soft_timeout_count) == len(events):
-        return ('timeout', True)
+    # gosat_unknown_count = len(list(filter(lambda tag: tag == 'gosat_unknown', events)))
+    # optsat_unknown_count = len(list(filter(lambda tag: tag == 'optsat_unknown', events)))
+    # colibri_generic_unknown_count = len(list(filter(lambda tag: tag == 'colibri_generic_unknown', events)))
+    # sum_status = sat_count+unsat_but_expected_sat_count+timeout_count+gosat_unknown_count+optsat_unknown_count+soft_timeout_count+colibri_generic_unknown_count
 
-    # FIXME: This is a hack. Can we do better?
-    # Try to Handle 'colibri_generic_unknown', 'timeout'
-    # There isn't an obvious way to handle this so just pick the more frequent tag
-    colibri_generic_unknown_count = len(list(filter(lambda tag: tag == 'colibri_generic_unknown', events)))
-    if (timeout_count + colibri_generic_unknown_count) == len(events):
-        if timeout_count >= colibri_generic_unknown_count:
-            return ('timeout', True)
-        else:
-            return ('colibri_generic_unknown', True)
+    # if unsat_but_expected_sat_count > 0 and sat_count+unsat_but_expected_sat_count+timeout_count == len(events):
+    #     return ('unsat_but_expected_sat', True)
+    # elif sat_count > 0 and sat_count+unsat_but_expected_sat_count+timeout_count == len(events):
+    #     return ('sat', True)
+    # elif timeout_count > 0 and sat_count+unsat_but_expected_sat_count+timeout_count == len(events):
+    #     return ('timeout', True)
+    # else:
+    #     return ('unknown', True)
 
-    # add by yx
-    colibri_unsat_expected_sat_count = len(list(filter(lambda tag: tag == 'unsat_but_expected_sat', events)))
-    if (timeout_count + colibri_unsat_expected_sat_count) == len(events):
-        if timeout_count >= colibri_generic_unknown_count:
-            return ('timeout', True)
-        else:
-            return ('colibri_unsat_but_expected_sat_count', True)
-
-    # add by yx
     if sat_count > 0:
         return ('sat', True)
+    elif unsat_but_expected_sat_count > 0:
+        return ('unsat_but_expected_sat', True)
+    elif timeout_count > 0 or soft_timeout_count > 0:
+        return ('timeout', True)
     else:
         return ('unknown', True)
-    unknown_count = len(list(filter(lambda tag: tag == 'unknown', events)))
-    if (sat_count + unknown_count) == len(events):
-        if sat_count > 0:
-            return ('sat', True)
-    if (timeout_count + unknown_count) == len(events):
-        if timeout_count >= unknown_count:
-            return ('timeout', True)
-        else:
-            return ('unknown', True)
+
+    # if sat_count > 0 and unsat_but_expected_sat_count > 0 and (sat_count + unsat_but_expected_sat_count) == len(events):
+    #     # This is bad behaviour and is for XSat. Penalise heavily by saying
+    #     # unsat_but_expected_sat
+    #     return ('unsat_but_expected_sat', True)
+    #
+    # # Handle mix of sat and timeout
+    # timeout_count = len(list(filter(lambda tag: tag == 'timeout', events)))
+    # if (timeout_count + sat_count) == len(events):
+    #     return ('sat', True)
+    #
+    # # Handle mix of sat and gosat_unknown
+    # gosat_unknown_count = len(list(filter(lambda tag: tag == 'gosat_unknown', events)))
+    # if (gosat_unknown_count + sat_count) == len(events):
+    #     return ('sat', True)
+    # if (timeout_count + gosat_unknown_count) == len(events): # add by yx
+    #     if timeout_count >= gosat_unknown_count:
+    #         return ('timeout', True)
+    #     else:
+    #         return ('gosat_unknown_count', True)
+    #
+    # optsat_unknown_count = len(list(filter(lambda tag: tag == 'optsat_unknown', events)))
+    # if (optsat_unknown_count + sat_count) == len(events):
+    #     return ('sat', True)
+    #
+    # # Handle mix of timeout and soft_timeout
+    # soft_timeout_count = len(list(filter(lambda tag: tag == 'soft_timeout', events)))
+    # if (timeout_count + soft_timeout_count) == len(events):
+    #     return ('timeout', True)
+    #
+    # # FIXME: This is a hack. Can we do better?
+    # # Try to Handle 'colibri_generic_unknown', 'timeout'
+    # # There isn't an obvious way to handle this so just pick the more frequent tag
+    # colibri_generic_unknown_count = len(list(filter(lambda tag: tag == 'colibri_generic_unknown', events)))
+    # if (timeout_count + colibri_generic_unknown_count) == len(events):
+    #     if timeout_count >= colibri_generic_unknown_count:
+    #         return ('timeout', True)
+    #     else:
+    #         return ('colibri_generic_unknown', True)
+    #
+    # # add by yx
+    # colibri_unsat_expected_sat_count = len(list(filter(lambda tag: tag == 'unsat_but_expected_sat', events)))
+    # if (timeout_count + colibri_unsat_expected_sat_count) == len(events):
+    #     if timeout_count >= colibri_generic_unknown_count:
+    #         return ('timeout', True)
+    #     else:
+    #         return ('colibri_unsat_but_expected_sat_count', True)
+    #
+    # # add by yx
+    # if sat_count > 0:
+    #     return ('sat', True)
+    # else:
+    #     return ('unknown', True)
+    # unknown_count = len(list(filter(lambda tag: tag == 'unknown', events)))
+    # if (sat_count + unknown_count) == len(events):
+    #     if sat_count > 0:
+    #         return ('sat', True)
+    # if (timeout_count + unknown_count) == len(events):
+    #     if timeout_count >= unknown_count:
+    #         return ('timeout', True)
+    #     else:
+    #         return ('unknown', True)
 
     raise MergeEventFailure('Could not merge {}'.format(events))
 

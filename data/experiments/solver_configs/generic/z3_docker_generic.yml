@@ -4,13 +4,13 @@ runner_config:
   # This is the tool_path inside the container
   tool_path: "/home/user/z3/build/z3"
   max_memory: 10240 # 10 GiB
-  max_time: 60 # 15 minutes
+  max_time: 600 # 15 minutes
   additional_args: ["-smt2"]
   backend:
     name: "Docker"
     config:
       # Z3 4.6.0 Docker image
-      image: "dockeryangxu/z3-4.6.0:ubuntu1804"
+      image: "dockerqsf/z3-4.6.0:ubuntu1804"
       skip_tool_check: True # Faster
       # Use same UID/GID inside container as outside so the container
       # can write to our files.

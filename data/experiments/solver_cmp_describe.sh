@@ -36,7 +36,7 @@ TOOL_OPTS+=("$@")
 
 DIR_PREFIX="${MERGED_DIR}/${bset}"
 #echo ${bset}
-if [ "${bset}" = "qf_fp" ] || [ "${bset}" = "qf_program_bfs" ] || [ "${bset}" = "smtlib_qf_fp" ] || [ "${bset}" = "smtlib_qf_fp_600" ]; then
+if [ "${bset}" = "smtlib_qf_fp" ] || [ "${bset}" = "smtlib_qf_fp_600" ]; then
   SOLVER_NAMES=( \
     z3 \
     cvc5 \
@@ -54,6 +54,19 @@ if [ "${bset}" = "qf_fp" ] || [ "${bset}" = "qf_program_bfs" ] || [ "${bset}" = 
     optsatBitwuzla \
   )
   TOOL_OPTS+=(--index-for-compute-sets 10)
+elif [ "${bset}" = "program_qf_fp" ] || [ "${bset}" = "program_qf_fp_600" ]; then
+  SOLVER_NAMES=( \
+    z3 \
+    cvc5 \
+    mathsat5 \
+    bitwuzla \
+    colibri \
+    jfs_lf_fail_fast_smart_seeds \
+    gosat \
+    optsat \
+    optsatBitwuzla \
+  )
+  TOOL_OPTS+=(--index-for-compute-sets 7)
 else
   SOLVER_NAMES=( \
     z3 \

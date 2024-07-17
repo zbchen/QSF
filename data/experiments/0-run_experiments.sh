@@ -24,8 +24,8 @@ BATCH_RUNNER="${SMT_RUNNER_ROOT}/batch-runner.py"
 
 
 # FIXME: Remove the echo
-TEST="echo"
-#TEST=""
+#TEST="echo"
+TEST=""
 START_TIME="$(date +%s)"
 
 TASK_SET_CMD=()

@@ -5,7 +5,7 @@
       <paths name="qsatServer">
         <serverdata>
           <mappings>
-            <mapping deploy="/PlatOptSat" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="/home/aaa/PlatQSF" local="$PROJECT_DIR$" web="/" />
           </mappings>
           <excludedPaths>
             <excludedPath path="/PlatOptSat/data/experiments/runs" />
