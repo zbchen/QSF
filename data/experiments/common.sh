@@ -7,21 +7,24 @@
 # List of solvers to use.
 # Look at `get_solver_config()` for the valid solver names.
 solvers=( \
-#  z3_nra \
-  z3 \
-  cvc5 \
-  mathsat5 \
-  bitwuzla \
-  colibri \
-##  jfs_lf_fail_fast \
-  jfs_lf_fail_fast_smart_seeds \
+##  z3_nra \
+#  z3 \
+#  cvc5 \
+#  mathsat5 \
+#  bitwuzla \
+#  colibri \
+###  jfs_lf_fail_fast \
+#  jfs_lf_fail_fast_smart_seeds \
 #  ol1v3r \
 #  coral_pso \
-##  coral_avm \
-#  xsat \
-  gosat \
-  optsat \
-  optsatBitwuzla \
+###  coral_avm \
+  xsat \
+#  gosat \
+#  optsat \
+#  optsat_soea \
+#  optsat_nsga2 \
+#  optsat_no_preprocess \
+#  optsatBitwuzla
 )
 
 JFS_ENABLE_VALIDATION_VARIANTS="${JFS_ENABLE_VALIDATION_VARIANTS:-0}"
@@ -49,18 +52,19 @@ fi
 #        QF_FP_griggio \
 #        QF_FP_ramalho \
 #        QF_FP_schanda)
-#bsets=(smtlib_qf_fp)
-bsets=(smtlib_qf_fp_600)
-#bsets=(program_qf_fp)
+bsets=(smtlib_qf_fp smtlib_qf_fp_600)
+#bsets=(smtlib_qf_fp_600 program_qf_fp_600)
+#bsets=(program_qf_fp program_qf_fp_600)
 #bsets=(program_qf_fp_600)
-#bsets=(gsl_elementary gsl_complex gsl_sf gsl_integration gsl_ploy gsl_odeiv gsl_fit gsl_cdf)
+#bsets=(smtlib_qf_fp program_qf_fp)
+#bsets=(smtlib_qf_fp program_qf_fp smtlib_qf_fp_600 program_qf_fp_600)
 #bsets=(smtlib_qf_nra)
 
 # List of runs to perform.
 # It is assumed that the list is a list of integers.
 #ns=(0 1 2 3 4)
 ns=(0 1 2 3 4 5 6 7 8 9)
-#ns=(0)
+#ns=(0 1)
 
 SCRIPT_DIR="$( cd ${BASH_SOURCE[0]%/*} ; echo $PWD )"
 #INVOCATIONS_DIR="${SCRIPT_DIR}/../benchmarks/3-stratified-random-sampling"
@@ -283,6 +287,15 @@ function get_solver_config() {
     optsat)
       echo "${CONFIG_ROOT}/optsat_docker_generic.yml"
     ;;
+    optsat_nsga2)
+      echo "${CONFIG_ROOT}/optsat_nsga2_docker_generic.yml"
+    ;;
+    optsat_soea)
+      echo "${CONFIG_ROOT}/optsat_soea_docker_generic.yml"
+    ;;
+    optsat_no_preprocess)
+      echo "${CONFIG_ROOT}/optsat_no_preprocess_docker_generic.yml"
+    ;;
     ol1v3r)
       case "${bset}" in
         qf_bv)
@@ -372,6 +385,15 @@ function get_solver_name() {
     optsat)
       echo "QSF"
     ;;
+    optsat_nsga2)
+      echo "QSF_NSGA-II"
+    ;;
+    optsat_soea)
+      echo "QSF_SOEA"
+    ;;
+    optsat_no_preprocess)
+      echo "QSF_NoPre"
+    ;;
     coral_pso)
       echo "CORAL"
     ;;
@@ -388,11 +410,47 @@ function get_solver_name() {
       echo "OL1V3R"
     ;;
     optsatBitwuzla)
-      echo "QSF+Bitwuzla"
+      echo "QSF_Bitwuzla"
     ;;
-    portfolio_optsat_bitwuzla)
-      echo "QSat+Bitwuzla"
-    ;;
+#    portfolio_optsat_bitwuzla)
+#      echo "QSF+Bitwuzla"
+#    ;;
+#    portfolio_colibri_bitwuzla)
+#      echo "COLIBRI+Bitwuzla"
+#    ;;
+#    portfolio_jfs_bitwuzla)
+#      echo "JFS+Bitwuzla"
+#    ;;
+#    portfolio_coral_bitwuzla)
+#      echo "CORAL+Bitwuzla"
+#    ;;
+#    portfolio_xsat_bitwuzla)
+#      echo "XSat+Bitwuzla"
+#    ;;
+#    portfolio_gosat_bitwuzla)
+#      echo "goSAT+Bitwuzla"
+#    ;;
+#    portfolio_z3_optsat)
+#      echo "Z3+QSF"
+#    ;;
+#    portfolio_cvc5_optsat)
+#      echo "CVC5+QSF"
+#    ;;
+#    portfolio_mathsat5_optsat)
+#      echo "MathSAT5+QSF"
+#    ;;
+#    portfolio_bitwuzla_optsat)
+#      echo "Bitwuzla+QSF"
+#    ;;
+#    portfolio_colibri_optsat)
+#      echo "COLIBRI+QSF"
+#    ;;
+#    portfolio_jfs_optsat)
+#      echo "JFS+QSF"
+#    ;;
+#    portfolio_gosat_optsat)
+#      echo "goSAT+QSF"
+#    ;;
     *)
       echo "Unrecognised solver \"${1}\""
       exit 1

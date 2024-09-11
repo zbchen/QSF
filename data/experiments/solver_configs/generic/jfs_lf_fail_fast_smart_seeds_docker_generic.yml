@@ -4,7 +4,7 @@ runner_config:
   # This is the tool_path inside the container
   tool_path: "/home/user/jfs/build/bin/jfs"
   max_memory: 10240 # 10 GiB
-  max_time: 600 # 15 minutes
+  max_time: 60 # 15 minutes
   additional_args:
 #    - "-max-time=600" # Soft timeout
 #    - "-v=1" # We want to see messages written to stderr

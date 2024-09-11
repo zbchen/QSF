@@ -1,26 +1,29 @@
 *.log
+*.out
 
+# *tar.gz,*rar
+program_qf_fp.tar.gz
+smtlib_qf_fp.tar.gz
 QF_NIA_SAT.rar
 QF_NRA_SAT.rar
+
 # benchmarks
 program_qf_fp/
 smtlib_qf_fp/
 smtlib_qf_nia/
 smtlib_qf_nra/
+
+# dic
 runs/
 build/
 install/
 solvers/
+script/
 
-#file
-getprogramYml.py
-qf_nra-optsat-nra.yml
-cmp-output_sat_yml.py
-output_filtered.py
 
 00-run_experiments.sh
 common1.sh
+common_1.sh
+common11.sh
 jfs_perf_describe.sh
 jfs_perf_plot_quantile.sh
-7-synthesize-portfolio.sh
-solver_cmp_plot_quantile.sh

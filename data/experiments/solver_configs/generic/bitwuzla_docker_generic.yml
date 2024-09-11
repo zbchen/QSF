@@ -4,9 +4,9 @@ runner_config:
   # This is the tool_path inside the container
   tool_path: "/home/user/bitwuzla/build/bin/bitwuzla"
   max_memory: 10240 # 10 GiB
-  max_time: 600 # 15 minutes
+  max_time: 60 # 15 minutes
   additional_args: []
-#    - "--time=600"
+#    - "--time=60"
   backend:
     name: "Docker"
     config:

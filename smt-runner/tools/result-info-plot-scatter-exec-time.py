@@ -43,6 +43,11 @@ def main(args):
         type=argparse.FileType('r'))
     parser.add_argument('--base', type=str, default="")
     parser.add_argument('--point-size', type=float, default=25.0, dest='point_size')
+    parser.add_argument('--title-switch', dest="title_switch", default=False, action='store_true')
+    parser.add_argument('--title-font-size', dest='title_font_size', default=18, type=int)
+    parser.add_argument('--label-font-size', dest='label_font_size', default=18, type=int)
+    parser.add_argument('--tick-font-size', dest='tick_font_size', default=14, type=int)
+    parser.add_argument('--annotate-font-size', dest='annotate_font_size', default=20, type=int)
     parser.add_argument('--allow-merge-failures',
         dest='allow_merge_failures',
         default=False,
@@ -54,7 +59,8 @@ def main(args):
         dest='max_exec_time',
     )
     parser.add_argument('--title',
-        default="{num_keys} benchmarks, {num_points} jointly SAT or timeout"
+        # default="{num_keys} benchmarks, {num_both} jointly SAT, average speedup is {speedup}"
+        default = "{timeout}s timeout, {speedup}X speedup"
     )
     parser.add_argument("--xlabel",
         type=str,
@@ -163,7 +169,7 @@ def main(args):
     x_lt_y_keys = set()
     x_eq_y_keys = set()
     x_eq_y_and_is_timeout_keys = set()
-    cnt = 0
+    # cnt = 0
     for key, raw_result_info_list in sorted(key_to_results_infos.items(), key=lambda kv:kv[0]):
         _logger.info('Ranking on "{}" : '.format(key))
         indices_to_use = []
@@ -230,8 +236,8 @@ def main(args):
         y_scatter_higher_error = y_scatter_point_bounds[2] - y_scatter_point_bounds[1]
         assert y_scatter_higher_error >= 0
 
-        print(cnt)
-        cnt += 1
+        # print(cnt)
+        # cnt += 1
         x_scatter_points.append(x_scatter_point)
         y_scatter_points.append(y_scatter_point)
         # Error bar points
@@ -302,11 +308,11 @@ def main(args):
     print(x_time_mean, y_time_mean, y_time_mean/x_time_mean)
     x_a = 0
     y_a = 0
-    cnt = 0;
+    cnt = 0
     for i,v in enumerate(x_scatter_points):
         x_v = x_scatter_points[i]
         y_v = y_scatter_points[i]
-        if x_v>=60:
+        if x_v>=60 or y_v>=60:
             continue
         x_a += x_v
         y_a += y_v
@@ -315,18 +321,23 @@ def main(args):
     # yy_a = np.power(y_a, len(y_scatter_points))
     x_avg = x_a/cnt
     y_avg = y_a/cnt
-    print(x_avg, y_avg, y_avg/x_avg)
+    speed_up = round(y_avg/x_avg, 2)
+    print(x_avg, y_avg, speed_up)
 
     # Now plot
-    # extend = 5  # modify yangxu
-    # tickFreq = 5  # modify yangxu
-    extend = 50 # modify yangxu
-    tickFreq = 50 # modify yangxu
+    extend = 5
+    tickFreq = 5
+    if pargs.max_exec_time == 60:
+        extend = 5  # modify yangxu
+        tickFreq = 5  # modify yangxu
+    elif pargs.max_exec_time == 600:
+        extend = 50 # modify yangxu
+        tickFreq = 50 # modify yangxu
     assert len(x_scatter_points) == len(y_scatter_points)
     fig, ax = plt.subplots()
     fig.patch.set_alpha(0.0) # Transparent
     if pargs.error_bars:
-        splot = ax.errorbar(
+        ax.errorbar(
             x_scatter_points,
             y_scatter_points,
             xerr=x_scatter_errors,
@@ -339,17 +350,17 @@ def main(args):
             #capthick=10,
         )
     else:
-        splot = ax.scatter(x_scatter_points, y_scatter_points, picker=5, s=pargs.point_size)
+        ax.scatter(x_scatter_points, y_scatter_points, picker=5, s=pargs.point_size)
     xlabel = index_to_file_name[0] if pargs.xlabel is None else pargs.xlabel
     ylabel = index_to_file_name[1] if pargs.ylabel is None else pargs.ylabel
-    xlabel += pargs.axis_label_suffix
-    ylabel += pargs.axis_label_suffix
+    # xlabel += pargs.axis_label_suffix
+    # ylabel += pargs.axis_label_suffix
     ax.xaxis.label.set_color(pargs.axis_label_colour)
     ax.yaxis.label.set_color(pargs.axis_label_colour)
-    ax.tick_params(axis='x', colors=pargs.axis_label_colour)
-    ax.tick_params(axis='y', colors=pargs.axis_label_colour)
-    ax.set_xlabel(xlabel)
-    ax.set_ylabel(ylabel)
+    ax.tick_params(axis='x', colors=pargs.axis_label_colour, labelsize=pargs.tick_font_size)
+    ax.tick_params(axis='y', colors=pargs.axis_label_colour, labelsize=pargs.tick_font_size)
+    ax.set_xlabel(xlabel, fontsize=pargs.label_font_size)
+    ax.set_ylabel(ylabel, fontsize=pargs.label_font_size)
 
     ax.set_xlim(0,pargs.max_exec_time + extend)
     ax.set_ylim(0,pargs.max_exec_time + extend)
@@ -358,13 +369,17 @@ def main(args):
     ax.set_yticks(range(0, int(pargs.max_exec_time) + 1, tickFreq))
 
     # Construct title keyword args
-    title_kwargs = {
-        'num_points': len(x_scatter_points),
-        'xlabel': xlabel,
-        'ylabel': ylabel,
-        'num_keys': len(key_to_results_infos.keys()),
-    }
-    ax.set_title(pargs.title.format(**title_kwargs))
+    if pargs.title_switch:
+        title_kwargs = {
+            'num_points': len(x_scatter_points),
+            'num_both': cnt,
+            'speedup': speed_up,
+            'xlabel': xlabel,
+            'ylabel': ylabel,
+            'num_keys': len(key_to_results_infos.keys()),
+            'timeout': int(pargs.max_exec_time)
+        }
+        ax.set_title(pargs.title.format(**title_kwargs), fontsize=pargs.title_font_size)
 
     # Identity line
     ax.plot([ 0 , pargs.max_exec_time + extend], [0, pargs.max_exec_time + extend], linewidth=1.0, color='black', )
@@ -379,27 +394,42 @@ def main(args):
             x_lt_value_to_display = len(x_lt_y_keys)
             x_gt_value_to_display = len(x_gt_y_keys)
 
-        ax.annotate(
-            '{}'.format(x_lt_value_to_display),
-            # xy=(20, 40),  # modified yangxu
-            xy=(200,400), # modified yangxu
-            fontsize=40
-        )
-        ax.annotate(
-            '{}'.format(x_gt_value_to_display),
-            # xy=(20, 40),  # modified yangxu
-            xy=(400,200), # modified yangxu
-            fontsize=40
-        )
+        if pargs.max_exec_time == 60:
+            ax.annotate(
+                '{}'.format(x_lt_value_to_display),
+                xy=(20, 40),  # modified yangxu
+                # xy=(200,400), # modified yangxu
+                fontsize=40
+            )
+            ax.annotate(
+                '{}'.format(x_gt_value_to_display),
+                xy=(40, 20),  # modified yangxu
+                # xy=(400,200), # modified yangxu
+                fontsize=40
+            )
+        elif pargs.max_exec_time == 600:
+            ax.annotate(
+                '{}'.format(x_lt_value_to_display),
+                # xy=(20, 40),  # modified yangxu
+                xy=(200, 400), # modified yangxu
+                fontsize=40
+            )
+            ax.annotate(
+                '{}'.format(x_gt_value_to_display),
+                # xy=(40, 20),  # modified yangxu
+                xy=(400, 200), # modified yangxu
+                fontsize=40
+            )
 
     # timeout point annotation
     if pargs.annotate_timeout_point:
         num_dual_timeouts = len(x_eq_y_and_is_timeout_keys)
         dual_timeout_txt = None
+        # dual_timeout_txt = '{} dual timeout'.format(num_dual_timeouts)
         if num_dual_timeouts == 1:
             dual_timeout_txt = '{} dual timeout'.format(num_dual_timeouts)
         else:
-            dual_timeout_txt = '{} dual timeouts'.format(num_dual_timeouts)
+            dual_timeout_txt = '{} dual timeout'.format(num_dual_timeouts)
 
         ax.annotate(dual_timeout_txt,
             # HACK -5 is to offset arrow properly
@@ -408,7 +438,7 @@ def main(args):
             arrowprops=dict(facecolor='black', shrink=0.05, width=1.5, headwidth=7.0),
             horizontalalignment='right', verticalalignment='center',
             bbox=dict(boxstyle='round',fc='None'),
-            fontsize=15)
+            fontsize=pargs.annotate_font_size)
 
     # Finally show
     if pargs.output is None:
@@ -416,7 +446,7 @@ def main(args):
     else:
         # For command line usage
         fig.show()
-        fig.savefig(pargs.output, format='pdf')
+        fig.savefig(pargs.output, format='pdf', bbox_inches='tight', pad_inches=0.01)
     return 0
 
 if __name__ == '__main__':

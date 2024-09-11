@@ -73,7 +73,7 @@ def get_arithmetic_mean_and_95_confidence_intervals(values):
     return get_arithmetic_mean_and_confidence_intervals(values, 1.96)
 
 def get_arithmetic_mean_and_99_confidence_intervals(values):
-    # 99.9 % confidence   position confidence yangxu
+    # 99.9 % confidence
     return get_arithmetic_mean_and_confidence_intervals(values, 3.27)
 
 def is_valid_bound(bounds):

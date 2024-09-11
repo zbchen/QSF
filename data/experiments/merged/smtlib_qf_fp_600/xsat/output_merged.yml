@@ -25,27 +25,27 @@ results:
   - 2.204741958
   - 2.059358608
   event_tag:
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
   exit_code:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   expected_sat: sat
   is_trivial: false
   out_of_memory:
@@ -60,16 +60,16 @@ results:
   - false
   - false
   sat:
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
-  - unknown
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
+  - sat
   stderr_log_file:
   - /0/wd/workdir-25/stderr.log.txt
   - /1/wd/workdir-25/stderr.log.txt

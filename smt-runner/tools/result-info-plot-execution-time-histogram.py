@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # vim: set sw=4 ts=4 softtabstop=4 expandtab:
+import numpy as np
+
 from load_smtrunner import add_smtrunner_to_module_search_path
 add_smtrunner_to_module_search_path()
 from smtrunner import ResultInfo, DriverUtil
@@ -22,8 +24,7 @@ def main(args):
         default=100,
         help='Number of bins for histogram plot'
     )
-    parser.add_argument('result_infos',
-                        type=argparse.FileType('r'))
+    parser.add_argument('result_infos', type=argparse.FileType('r'))
     parser.add_argument('--base', type=str, default="")
     parser.add_argument('--report-num-under',
         dest='report_num_under',
@@ -88,7 +89,25 @@ def plot_histogram(runs, nbins, title, max_time, report_num_under):
             return min(t, max_time)
         else:
             return t
-    execution_times = [ bound_time(r['wallclock_time']) for r in runs ]
+
+    execution_times = []
+    for r in runs:
+        temp = r['dsoes_wallclock_time']
+        # print(r['benchmark'])
+        # temp = r['wallclock_time']
+        # print(temp)
+        sum = 0
+        for t in temp:
+            if t is None:
+                sum+=max_time
+            else:
+                sum+=t
+        # avg = np.mean(temp)
+        avg = sum/len(temp)
+        temp_b = bound_time(avg)
+        execution_times.append(temp_b)
+
+    # execution_times = [ bound_time(r['wallclock_time']) for r in runs ]
 
     if max_time is not None:
         # Use user provided value
@@ -111,7 +130,7 @@ def plot_histogram(runs, nbins, title, max_time, report_num_under):
     _logger.info('bins: {}'.format(bins))
 
     if report_num_under is not None:
-        accum_num_under = 0;
+        accum_num_under = 0
         for bin_count in n:
             if bin_count <= report_num_under:
                 accum_num_under += bin_count
@@ -128,6 +147,7 @@ def plot_histogram(runs, nbins, title, max_time, report_num_under):
     if max_time is not None:
         # Use range
         plt.xlim([0, max_time])
+
     plt.show()
 
 if __name__ == '__main__':

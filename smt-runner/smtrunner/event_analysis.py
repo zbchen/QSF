@@ -83,23 +83,23 @@ def merge_aggregate_events(events):
     # colibri_generic_unknown_count = len(list(filter(lambda tag: tag == 'colibri_generic_unknown', events)))
     # sum_status = sat_count+unsat_but_expected_sat_count+timeout_count+gosat_unknown_count+optsat_unknown_count+soft_timeout_count+colibri_generic_unknown_count
 
-    # if unsat_but_expected_sat_count > 0 and sat_count+unsat_but_expected_sat_count+timeout_count == len(events):
-    #     return ('unsat_but_expected_sat', True)
-    # elif sat_count > 0 and sat_count+unsat_but_expected_sat_count+timeout_count == len(events):
-    #     return ('sat', True)
-    # elif timeout_count > 0 and sat_count+unsat_but_expected_sat_count+timeout_count == len(events):
-    #     return ('timeout', True)
-    # else:
-    #     return ('unknown', True)
-
-    if sat_count > 0:
+    if sat_count >= unsat_but_expected_sat_count and sat_count >= (timeout_count+soft_timeout_count):
         return ('sat', True)
-    elif unsat_but_expected_sat_count > 0:
-        return ('unsat_but_expected_sat', True)
-    elif timeout_count > 0 or soft_timeout_count > 0:
+    elif unsat_but_expected_sat_count >= sat_count and unsat_but_expected_sat_count >= (timeout_count+soft_timeout_count):
+        return ('unsat_but_expected_sat_count', True)
+    elif (timeout_count+soft_timeout_count) >= sat_count and (timeout_count+soft_timeout_count) >= unsat_but_expected_sat_count:
         return ('timeout', True)
     else:
         return ('unknown', True)
+
+    # if sat_count > 0:
+    #     return ('sat', True)
+    # elif unsat_but_expected_sat_count > 0:
+    #     return ('unsat_but_expected_sat', True)
+    # elif timeout_count > 0 or soft_timeout_count > 0:
+    #     return ('timeout', True)
+    # else:
+    #     return ('unknown', True)
 
     # if sat_count > 0 and unsat_but_expected_sat_count > 0 and (sat_count + unsat_but_expected_sat_count) == len(events):
     #     # This is bad behaviour and is for XSat. Penalise heavily by saying
@@ -214,7 +214,7 @@ class GenericRunnerEventAnalyser:
         if ri['sat'] == 'unknown':
             if ri['out_of_memory'] is True:
                 return 'out_of_memory'
-            elif ri['backend_timeout'] is True:
+            elif ri['backend_timeout'] is True or ri['exit_code'] == 'null':
                 return 'timeout'
             else:
                 return 'unknown'
