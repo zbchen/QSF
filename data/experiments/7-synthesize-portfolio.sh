@@ -34,13 +34,13 @@ for bset in ${bsets[@]}; do
   if [[ "${bset}" == "smtlib_qf_fp" ]]; then
     timeout=60
     OTHER_SOLVERS=(colibri jfs coral xsat gosat optsat)
-  if [[ "${bset}" == "smtlib_qf_fp_600" ]]; then
+  elif [[ "${bset}" == "smtlib_qf_fp_600" ]]; then
     timeout=600
     OTHER_SOLVERS=(colibri jfs coral xsat gosat optsat)
-  if [[ "${bset}" == "program_qf_fp" ]]; then
+  elif [[ "${bset}" == "program_qf_fp" ]]; then
     timeout=60
     OTHER_SOLVERS=(colibri jfs gosat optsat)
-  if [[ "${bset}" == "program_qf_fp_600" ]]; then
+  elif [[ "${bset}" == "program_qf_fp_600" ]]; then
     timeout=600
     OTHER_SOLVERS=(colibri jfs gosat optsat)
   else
@@ -85,4 +85,5 @@ for bset in ${bsets[@]}; do
           --output ${output_file} 2> /dev/null
     done
   done
+
 done
