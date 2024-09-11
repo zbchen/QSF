@@ -1,15 +1,6 @@
 # QSF paper artifact
 
-This directory contains files that supplement the QSF
-paper by describing our data in more detail.
-
-Note that this git repository relies on git-lfs. You will
-need to install this in order to retrieve the large files
-in the respository. Once you have git-lfs installed run
-
-```
-git-lfs clone https://anonymous.4open.science/r/qsf
-```
+This is the artifact of QSF. You can download the repository to your local computer to get the experimental results in the paper.
 
 # `data`
 
@@ -30,10 +21,8 @@ docker pull dockerqsf/mathsat-5.5.1:ubuntu1804
 docker pull dockerqsf/bitwuzla-1.0:ubuntu1804
 docker pull dockerqsf/colibri-2017:ubuntu1804
 docker pull dockerqsf/coral-2015:ubuntu1804
-docker pull dockerqsf/my-racket-app:latest
 docker pull dockerqsf/jfs-2019:ubuntu1804
 docker pull dockerqsf/xsat-2016:ubuntu1804
 docker pull dockerqsf/gosat-2017:ubuntu1804
 docker pull dockerqsf/qsat-2024:ubuntu1804
-docker pull dockerqsf/qsat-bitwuzla:ubuntu1804
 ```

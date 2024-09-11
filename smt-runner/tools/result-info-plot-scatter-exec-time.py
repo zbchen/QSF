@@ -44,7 +44,7 @@ def main(args):
     parser.add_argument('--base', type=str, default="")
     parser.add_argument('--point-size', type=float, default=25.0, dest='point_size')
     parser.add_argument('--title-switch', dest="title_switch", default=False, action='store_true')
-    parser.add_argument('--title-font-size', dest='title_font_size', default=18, type=int)
+    parser.add_argument('--title-font-size', dest='title_font_size', default=20, type=int)
     parser.add_argument('--label-font-size', dest='label_font_size', default=18, type=int)
     parser.add_argument('--tick-font-size', dest='tick_font_size', default=14, type=int)
     parser.add_argument('--annotate-font-size', dest='annotate_font_size', default=20, type=int)
@@ -60,7 +60,7 @@ def main(args):
     )
     parser.add_argument('--title',
         # default="{num_keys} benchmarks, {num_both} jointly SAT, average speedup is {speedup}"
-        default = "{timeout}s timeout, {speedup}X speedup"
+        default = "{speedup}X speedup"
     )
     parser.add_argument("--xlabel",
         type=str,

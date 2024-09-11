@@ -511,7 +511,7 @@ def main(args):
     parser.add_argument('--report-negative-results', dest='report_negative_results', default=False, action='store_true')
     parser.add_argument('--legend-font-size', dest='legend_font_size', default=12, type=int)
     parser.add_argument('--draw-style', dest='drawstyle', choices=['steps','default'], default='default', help='Line draw style')
-    parser.add_argument('--legend-num-columns', dest='legend_num_columns', default=2, type=int)
+    parser.add_argument('--legend-num-columns', dest='legend_num_columns', default=1, type=int)
 
     actionGroup = parser.add_mutually_exclusive_group()
     actionGroup.add_argument('--ipython', action='store_true')
@@ -830,12 +830,20 @@ def main(args):
         ax.set_ybound(lower=0.0, upper=round_away_from_zero_to_multiple_of(100, max_observed_y_value))
 
     # X-axis bounds
+    # ax.set_xscale('symlog', linthreshy=1.0, linscaley=0.1)
+    # xAxisLocator = LogLocator(subs=numpy.arange(1.0, 10.0))
+    # ax.xaxis.set_minor_locator(xAxisLocator)
+    # ax.xaxis.set_tick_params(which='minor', length=4, labelsize=pargs.tick_font_size)
+    # ax.xaxis.set_tick_params(which='major', length=6, labelsize=pargs.tick_font_size)
+
     # Round up to nearest multiple of 10
     assert max_observed_x_value >= 0.0
-    x_axis_upper_bound = round_away_from_zero_to_multiple_of(10, max_observed_x_value)
-    x_axis_lower_bound = round_away_from_zero_to_multiple_of(10, min_observed_x_value)
-    ax.set_xbound(lower=x_axis_lower_bound, upper=x_axis_upper_bound)
-    _logger.info('X axis bounds [{}, {}]'.format(x_axis_lower_bound, x_axis_upper_bound))
+    # x_axis_upper_bound = round_away_from_zero_to_multiple_of(10, max_observed_x_value)
+    # x_axis_lower_bound = round_away_from_zero_to_multiple_of(10, min_observed_x_value)
+    # ax.set_xbound(lower=x_axis_lower_bound, upper=x_axis_upper_bound)
+    # _logger.info('X axis bounds [{}, {}]'.format(x_axis_lower_bound, x_axis_upper_bound))
+    ax.set_xbound(lower=100, upper=max_observed_x_value)
+    _logger.info('X axis bounds [{}, {}]'.format(min_observed_x_value, max_observed_x_value))
 
 
     if pargs.ipython:

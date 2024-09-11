@@ -38,8 +38,8 @@ if [ "${bset}" = "smtlib_qf_fp" ] || [ "${bset}" = "smtlib_qf_fp_600" ]; then
       mathsat5 \
       bitwuzla \
       colibri \
-      jfs_lf_fail_fast_smart_seeds \
-      coral_pso \
+      jfs \
+      coral \
       xsat \
       gosat \
 #      optsat_no_preprocess \
@@ -55,7 +55,7 @@ elif [ "${bset}" = "program_qf_fp" ] || [ "${bset}" = "program_qf_fp_600" ]; the
       mathsat5 \
       bitwuzla \
       colibri \
-      jfs_lf_fail_fast_smart_seeds \
+      jfs \
       gosat \
 #      optsat_no_preprocess \
 #      optsat_nsga2 \

@@ -1,6 +1,6 @@
 misc:
-  num_fail_to_rank: 10
-  rank_wins_for_bitwuzla: 192
+  num_fail_to_rank: 11
+  rank_wins_for_bitwuzla: 191
   rank_wins_for_xsat: 64
   runner: Bitwuzla
   synthesized_from:
@@ -65,7 +65,7 @@ results:
   - false
   - false
   - false
-  rank_failure: false
+  rank_failure: true
   rank_winner: bitwuzla
   sat:
   - sat
