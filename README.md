@@ -8,7 +8,7 @@ need to install this in order to retrieve the large files
 in the respository. Once you have git-lfs installed run
 
 ```
-git-lfs clone https://github.com/qsat-artifact/qsat-ase24
+git-lfs clone https://anonymous.4open.science/r/qsf
 ```
 
 # `data`
