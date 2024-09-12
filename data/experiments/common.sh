@@ -81,7 +81,7 @@ function get_invocation_info() {
         echo "${INVOCATIONS_DIR}/smtlib_qf_fp/smtlib_qf_fp.yml"
       ;;
     program_qf_fp*)
-      echo "${INVOCATIONS_DIR}/program_qf_fp/program_filtered_final.yml"
+      echo "${INVOCATIONS_DIR}/program_qf_fp/program_qf_fp.yml"
     ;;
     *)
       echo "Unrecognised bset \"${bset}\""
