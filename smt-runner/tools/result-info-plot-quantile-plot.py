@@ -10,6 +10,8 @@ add_smtrunner_to_module_search_path()
 from smtrunner import ResultInfo, DriverUtil, ResultInfoUtil, analysis, event_analysis
 import smtrunner.util
 import matplotlib.pyplot as plt
+from matplotlib.ticker import LogLocator
+import numpy
 
 import argparse
 import json
@@ -726,13 +728,34 @@ def main(args):
             name_for_legend = index_to_truncated_file_path[index]
         pickTolerance=4
         if pargs.error_bars:
+            # print("=========================")
+            # print(y_errors)
+            # deal with exception point
+            err_true=[]
+            err_true.append(y_errors[0])
+            err_true.append(y_errors[1])
+            for idx,err in enumerate(y_errors[0]):
+                if err>10:
+                    err_true[0][idx] = float(1)
+            for idx,err in enumerate(y_errors[1]):
+                if err>10:
+                    err_true[1][idx] = float(1)
+
             p = ax.errorbar(
                 x_points,
                 y_points,
-                yerr=y_errors,
+                yerr=err_true,
                 #picker=pickTolerance,
                 drawstyle=pargs.drawstyle,
                 markersize=pargs.point_size)
+            # p = ax.plot(
+            #     x_points,
+            #     y_points,
+            #     '-o' if pargs.points else '-',
+            #     # picker=pickTolerance,
+            #     drawstyle=pargs.drawstyle,
+            #     markersize=pargs.point_size)
+            # ax.fill_between(x_points, y_points - y_errors[0], y_points + y_errors[0], alpha=0.5)
         else:
             p = ax.plot(
                 x_points,
@@ -741,6 +764,19 @@ def main(args):
                 #picker=pickTolerance,
                 drawstyle=pargs.drawstyle,
                 markersize=pargs.point_size)
+
+            # for i in range(len(y_mean)):
+            #     ax.plot(np.array(X), np.array(y_mean[i]),
+            #             # marker=marker[i],
+            #             markersize=None,
+            #             markerfacecolor=None,
+            #             markeredgecolor=None,
+            #             alpha=0.5,
+            #             ls=None,
+            #             label=label[i],
+            #             linewidth=2)
+            #     ax.fill_between(X, y_mean[i] - y_std[i], y_mean[i] + y_std[i], alpha=0.5)
+            #
         curves.append(p[0])
 
         legend_names.append(name_for_legend)
@@ -809,18 +845,14 @@ def main(args):
           legend.draggable(True)
 
     # Adjust y-axis so it is a log plot everywhere except [-1,1] which is linear
-    ax.set_yscale('symlog', linthreshy=1.0, linscaley=0.1)
-
-    #set minor ticks on y-axis
-    from matplotlib.ticker import LogLocator
-    import numpy
     yAxisLocator = LogLocator(subs=numpy.arange(1.0,10.0))
+    ax.set_yscale('symlog', linthreshy=1, linscaley=0.1)
     ax.yaxis.set_minor_locator(yAxisLocator)
     ax.yaxis.set_tick_params(which='minor', length=4, labelsize=pargs.tick_font_size)
     ax.yaxis.set_tick_params(which='major', length=6, labelsize=pargs.tick_font_size)
-    #ax.grid()
-    # ax.tick_params(axis='both', which='minor', length=4, labelsize=pargs.tick_font_size)
-    # ax.tick_params(axis='both', which='major', length=6, labelsize=pargs.tick_font_size)
+    ax.grid()
+    ax.tick_params(axis='both', which='minor', length=4, labelsize=pargs.tick_font_size)
+    ax.tick_params(axis='both', which='major', length=6, labelsize=pargs.tick_font_size)
 
     # Y-axis bounds
     if pargs.max_exec_time:
@@ -829,9 +861,13 @@ def main(args):
     else:
         ax.set_ybound(lower=0.0, upper=round_away_from_zero_to_multiple_of(100, max_observed_y_value))
 
-    # X-axis bounds
-    # ax.set_xscale('symlog', linthreshy=1.0, linscaley=0.1)
-    # xAxisLocator = LogLocator(subs=numpy.arange(1.0, 10.0))
+
+    """
+    X-axis always have data, so don't need to logLocator
+    """
+    # # # X-axis bounds
+    # ax.set_xscale('symlog', linthreshx=1, linscalex=1)
+    # xAxisLocator = LogLocator(base=0.01, subs=numpy.arange(1.0, 10.0))
     # ax.xaxis.set_minor_locator(xAxisLocator)
     # ax.xaxis.set_tick_params(which='minor', length=4, labelsize=pargs.tick_font_size)
     # ax.xaxis.set_tick_params(which='major', length=6, labelsize=pargs.tick_font_size)
@@ -842,7 +878,7 @@ def main(args):
     # x_axis_lower_bound = round_away_from_zero_to_multiple_of(10, min_observed_x_value)
     # ax.set_xbound(lower=x_axis_lower_bound, upper=x_axis_upper_bound)
     # _logger.info('X axis bounds [{}, {}]'.format(x_axis_lower_bound, x_axis_upper_bound))
-    ax.set_xbound(lower=100, upper=max_observed_x_value)
+    ax.set_xbound(lower=100.0, upper=max_observed_x_value)
     _logger.info('X axis bounds [{}, {}]'.format(min_observed_x_value, max_observed_x_value))
 
 

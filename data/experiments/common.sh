@@ -27,7 +27,8 @@ solvers=( \
 
 # Benchmark sets to use.
 # See `get_invocation_info()` for valid benchmark sets.
-bsets=(smtlib_qf_fp program_qf_fp smtlib_qf_fp_600 program_qf_fp_600)
+#bsets=(smtlib_qf_fp program_qf_fp smtlib_qf_fp_600 program_qf_fp_600)
+bsets=(smtlib_qf_fp)
 
 # List of runs to perform.
 # It is assumed that the list is a list of integers.

@@ -23,6 +23,9 @@ import re
 import sys
 import yaml
 
+# set minor ticks on y-axis
+from matplotlib.ticker import LogLocator
+
 _logger = None
 
 def strip(prefix, path):
@@ -42,12 +45,13 @@ def main(args):
     parser.add_argument('second_result_info',
         type=argparse.FileType('r'))
     parser.add_argument('--base', type=str, default="")
-    parser.add_argument('--point-size', type=float, default=25.0, dest='point_size')
+    parser.add_argument('--point-size', type=float, default=5, dest='point_size')
     parser.add_argument('--title-switch', dest="title_switch", default=False, action='store_true')
-    parser.add_argument('--title-font-size', dest='title_font_size', default=20, type=int)
-    parser.add_argument('--label-font-size', dest='label_font_size', default=18, type=int)
-    parser.add_argument('--tick-font-size', dest='tick_font_size', default=14, type=int)
+    parser.add_argument('--title-font-size', dest='title_font_size', default=14, type=int)
+    parser.add_argument('--label-font-size', dest='label_font_size', default=12, type=int)
+    parser.add_argument('--tick-font-size', dest='tick_font_size', default=10, type=int)
     parser.add_argument('--annotate-font-size', dest='annotate_font_size', default=20, type=int)
+    parser.add_argument('--annotate-size', dest='annotate_size', default=30, type=int)
     parser.add_argument('--allow-merge-failures',
         dest='allow_merge_failures',
         default=False,
@@ -334,7 +338,8 @@ def main(args):
         extend = 50 # modify yangxu
         tickFreq = 50 # modify yangxu
     assert len(x_scatter_points) == len(y_scatter_points)
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(figsize=(4, 3))
+    # fig, ax = plt.subplots()
     fig.patch.set_alpha(0.0) # Transparent
     if pargs.error_bars:
         ax.errorbar(
@@ -351,6 +356,7 @@ def main(args):
         )
     else:
         ax.scatter(x_scatter_points, y_scatter_points, picker=5, s=pargs.point_size)
+
     xlabel = index_to_file_name[0] if pargs.xlabel is None else pargs.xlabel
     ylabel = index_to_file_name[1] if pargs.ylabel is None else pargs.ylabel
     # xlabel += pargs.axis_label_suffix
@@ -367,6 +373,22 @@ def main(args):
     # +1 is just so the pargs.max_exec_time is included because range()'s end is not inclusive
     ax.set_xticks(range(0, int(pargs.max_exec_time) + 1, tickFreq))
     ax.set_yticks(range(0, int(pargs.max_exec_time) + 1, tickFreq))
+
+    ax.set_yscale('symlog', linthreshy=0.1, linscaley=1)
+    ax.set_xscale('symlog', linthreshx=0.1, linscalex=1)
+    AxisLocator = LogLocator(base=10, subs=np.arange(1.0, 10.0))
+
+    ax.yaxis.set_minor_locator(AxisLocator)
+    ax.yaxis.set_tick_params(which='minor', length=2, labelsize=pargs.tick_font_size)
+    ax.yaxis.set_tick_params(which='major', length=3, labelsize=pargs.tick_font_size)
+    assert pargs.max_exec_time > 0.0
+    ax.set_ybound(lower=0.0, upper=pargs.max_exec_time)
+
+    ax.xaxis.set_minor_locator(AxisLocator)
+    ax.xaxis.set_tick_params(which='minor', length=2, labelsize=pargs.tick_font_size)
+    ax.xaxis.set_tick_params(which='major', length=3, labelsize=pargs.tick_font_size)
+    assert pargs.max_exec_time > 0.0
+    ax.set_xbound(lower=0.0, upper=pargs.max_exec_time)
 
     # Construct title keyword args
     if pargs.title_switch:
@@ -394,32 +416,50 @@ def main(args):
             x_lt_value_to_display = len(x_lt_y_keys)
             x_gt_value_to_display = len(x_gt_y_keys)
 
-        if pargs.max_exec_time == 60:
-            ax.annotate(
-                '{}'.format(x_lt_value_to_display),
-                xy=(20, 40),  # modified yangxu
-                # xy=(200,400), # modified yangxu
-                fontsize=40
-            )
-            ax.annotate(
-                '{}'.format(x_gt_value_to_display),
-                xy=(40, 20),  # modified yangxu
-                # xy=(400,200), # modified yangxu
-                fontsize=40
-            )
-        elif pargs.max_exec_time == 600:
-            ax.annotate(
-                '{}'.format(x_lt_value_to_display),
-                # xy=(20, 40),  # modified yangxu
-                xy=(200, 400), # modified yangxu
-                fontsize=40
-            )
-            ax.annotate(
-                '{}'.format(x_gt_value_to_display),
-                # xy=(40, 20),  # modified yangxu
-                xy=(400, 200), # modified yangxu
-                fontsize=40
-            )
+        # 添加左上中间的注释
+        ax.annotate(
+            '{}'.format(x_lt_value_to_display),
+            xy=(0.4, 0.6),  # 相对位置，左上
+            xycoords='axes fraction',  # 使用相对坐标 (axes fraction)
+            ha='center', va='center',
+            fontsize=pargs.annotate_size, color='black'
+        )
+
+        # 添加右下中间的注释
+        ax.annotate(
+            '{}'.format(x_gt_value_to_display),
+            xy=(0.6, 0.4),  # 相对位置，右下
+            xycoords='axes fraction',  # 使用相对坐标 (axes fraction)
+            ha='center', va='center',
+            fontsize=pargs.annotate_size, color='black'
+        )
+
+        # if pargs.max_exec_time == 60:
+        #     ax.annotate(
+        #         '{}'.format(x_lt_value_to_display),
+        #         xy=(20, 40),  # modified yangxu
+        #         # xy=(200,400), # modified yangxu
+        #         fontsize=40
+        #     )
+        #     ax.annotate(
+        #         '{}'.format(x_gt_value_to_display),
+        #         xy=(40, 20),  # modified yangxu
+        #         # xy=(400,200), # modified yangxu
+        #         fontsize=40
+        #     )
+        # elif pargs.max_exec_time == 600:
+        #     ax.annotate(
+        #         '{}'.format(x_lt_value_to_display),
+        #         # xy=(20, 40),  # modified yangxu
+        #         xy=(200, 400), # modified yangxu
+        #         fontsize=40
+        #     )
+        #     ax.annotate(
+        #         '{}'.format(x_gt_value_to_display),
+        #         # xy=(40, 20),  # modified yangxu
+        #         xy=(400, 200), # modified yangxu
+        #         fontsize=40
+        #     )
 
     # timeout point annotation
     if pargs.annotate_timeout_point:
@@ -446,7 +486,7 @@ def main(args):
     else:
         # For command line usage
         fig.show()
-        fig.savefig(pargs.output, format='pdf', bbox_inches='tight', pad_inches=0.01)
+        fig.savefig(pargs.output, format='pdf', bbox_inches='tight', pad_inches=0.01, dpi=30)
     return 0
 
 if __name__ == '__main__':

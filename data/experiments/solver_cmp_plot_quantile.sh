@@ -36,14 +36,14 @@ TOOL_OPTS=( \
   --max-exec-time ${timeout} \
   --mode time \
   --true-type-fonts \
-#  --error-bars \
+  --error-bars \
 #  --points \
-  --title "${timeout}s timeout" \
+#  --title "${timeout}s timeout" \
 #  --title-font-size 14 \
 #  --label-font-size 12 \
 #  --legend-font-size 10 \
 #  --tick-font-size 10 \
-  --pdf "result/${bset}/portfolio_${bset}_100.pdf"
+  --pdf "result/${bset}/portfolio_${bset}_err.pdf"
 #  --pdf "result/${bset}/ablation_${bset}.pdf"
 )
 

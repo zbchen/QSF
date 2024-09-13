@@ -1,11 +1,11 @@
 misc:
   num_fail_to_rank: 44
   rank_wins_for_bitwuzla: 157
-  rank_wins_for_jfs: 65
+  rank_wins_for_jfs_lf_fail_fast_smart_seeds: 65
   runner: Bitwuzla
   synthesized_from:
   - bitwuzla
-  - jfs
+  - jfs_lf_fail_fast_smart_seeds
 results:
 - backend_timeout:
   - false
@@ -110,7 +110,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -291,7 +291,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -16364,7 +16364,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -16545,7 +16545,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -16863,7 +16863,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -17044,7 +17044,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -17225,7 +17225,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -17406,7 +17406,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -17587,7 +17587,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -17905,7 +17905,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -18223,7 +18223,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -18404,7 +18404,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -18585,7 +18585,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -18903,7 +18903,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -19084,7 +19084,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -19265,7 +19265,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -21090,7 +21090,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -22367,7 +22367,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -22685,7 +22685,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -23003,7 +23003,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -23321,7 +23321,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -23639,7 +23639,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -23957,7 +23957,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -25097,7 +25097,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -25552,7 +25552,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -26007,7 +26007,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -26188,7 +26188,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -26369,7 +26369,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -26550,7 +26550,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -26731,7 +26731,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -26912,7 +26912,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -27230,7 +27230,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -27411,7 +27411,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -29647,7 +29647,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -30650,7 +30650,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -30831,7 +30831,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -31012,7 +31012,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -31193,7 +31193,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -31374,7 +31374,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -31829,7 +31829,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -32010,7 +32010,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -32465,7 +32465,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -32646,7 +32646,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -32827,7 +32827,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -33556,7 +33556,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -33737,7 +33737,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -33918,7 +33918,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -34099,7 +34099,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -34280,7 +34280,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -34461,7 +34461,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -34642,7 +34642,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -34960,7 +34960,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -35141,7 +35141,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -36007,7 +36007,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -36188,7 +36188,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -36369,7 +36369,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -36550,7 +36550,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -37005,7 +37005,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -37871,7 +37871,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -38052,7 +38052,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -38370,7 +38370,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -38688,7 +38688,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -38869,7 +38869,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -39050,7 +39050,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat
@@ -39231,7 +39231,7 @@ results:
   - false
   - false
   rank_failure: false
-  rank_winner: jfs
+  rank_winner: jfs_lf_fail_fast_smart_seeds
   sat:
   - sat
   - sat

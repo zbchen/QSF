@@ -41,13 +41,10 @@ if [ "${bset}" = "smtlib_qf_fp" ] || [ "${bset}" = "smtlib_qf_fp_600" ]; then
       jfs \
       coral \
       xsat \
-      gosat \
-#      optsat_no_preprocess \
-#      optsat_nsga2 \
-#      optsat_soea
+      gosat
     )
-  LEGEND_NAMES='["Z3", "CVC5", "MathSAT5", "Bitwuzla", "COLIBRI", "JFS", "CORAL", "XSat", "goSAT"]'
-#  LEGEND_NAMES='["QSF_NoPre", "QSF_NSGA-II", "QSF_SOEA"]'
+#  LEGEND_NAMES='["Z3", "CVC5", "MathSAT5", "Bitwuzla", "COLIBRI", "JFS", "CORAL", "XSat", "goSAT"]'
+#  LEGEND_NAMES='["Z3"]'
 elif [ "${bset}" = "program_qf_fp" ] || [ "${bset}" = "program_qf_fp_600" ]; then
   OTHER_NAMES=( \
       z3 \
@@ -61,8 +58,8 @@ elif [ "${bset}" = "program_qf_fp" ] || [ "${bset}" = "program_qf_fp_600" ]; the
 #      optsat_nsga2 \
 #      optsat_soea
     )
-  LEGEND_NAMES='["Z3", "CVC5", "MathSAT5", "Bitwuzla", "COLIBRI", "JFS", "goSAT"]'
-#  LEGEND_NAMES='["QSF_NoPre", "QSF_NSGA-II", "QSF_SOEA"]'
+#  LEGEND_NAMES='["Z3", "CVC5", "MathSAT5", "Bitwuzla", "COLIBRI", "JFS", "goSAT"]'
+#  LEGEND_NAMES='["Z3"]'
 fi
 
 DIR_PREFIX="${MERGED_DIR}/${bset}"
@@ -77,7 +74,7 @@ for solverY in ${OTHER_NAMES[@]}; do
     --true-type-fonts \
   #  --annotate-use-legacy-values \
     --title-switch \
-    --annotate-timeout-point \
+#    --annotate-timeout-point \
     --output "result/${bset}/scatter_${solverXName}_${solverYName}_${timeout}.pdf"
   )
 
