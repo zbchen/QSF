@@ -2,23 +2,27 @@
 *.out
 
 # *tar.gz,*rar
-program_qf_fp.tar.gz
-smtlib_qf_fp.tar.gz
+#program_qf_fp.tar.gz
+#smtlib_qf_fp.tar.gz
 QF_NIA_SAT.rar
 QF_NRA_SAT.rar
 
 # benchmarks
-program_qf_fp/
-smtlib_qf_fp/
-smtlib_qf_nia/
-smtlib_qf_nra/
+data/benchmarks/program_qf_fp/
+data/benchmarks/smtlib_qf_fp/
+data/benchmarks/smtlib_qf_nia/
+data/benchmarks/smtlib_qf_nra/
 
 # dic
+result_apk/
 runs/
 build/
 install/
 solvers/
 script/
+program_qf_fp_nobitwise/
+program-qf_fp_600_nobitwise/
+portfolio_bitwuzla_jfs_lf_fail_fast_smart_seeds/
 
 
 00-run_experiments.sh

@@ -7,28 +7,32 @@
 # List of solvers to use.
 # Look at `get_solver_config()` for the valid solver names.
 solvers=( \
-#  z3 \
-#  cvc5 \
-#  mathsat5 \
-#  bitwuzla \
-#  colibri \
-#  jfs \
+  z3 \
+  cvc5 \
+  mathsat5 \
+  bitwuzla \
+  colibri \
+  jfs \
 #  ol1v3r \
 #  coral \
 #  xsat \
-#  gosat \
-#  optsat \
+  gosat \
+  optsat \
   optsat_soeacov \
-#  optsat_soeadis \
-#  optsat_nsga2 \
-#  optsat_no_preprocess \
+  optsat_soeadis \
+  optsat_nsga2 \
+  optsat_no_preprocess \
 #  optsatBitwuzla
 )
 
 # Benchmark sets to use.
 # See `get_invocation_info()` for valid benchmark sets.
 #bsets=(smtlib_qf_fp program_qf_fp smtlib_qf_fp_600 program_qf_fp_600)
-bsets=(smtlib_qf_fp)
+#bsets=(smtlib_qf_fp)
+#bsets=(program_qf_fp)
+bsets=(program_qf_fp_600)
+#bsets=(all_program_qf_fp)
+#bsets=(all_program_qf_fp_600)
 
 # List of runs to perform.
 # It is assumed that the list is a list of integers.
@@ -61,7 +65,7 @@ function get_benchmark_base() {
   bset="$1"
    base_dir="${SCRIPT_DIR}/../benchmarks"
    case "${bset}" in
-     program_qf_fp*)
+     program_qf_fp*|all_program_qf_fp*)
        echo "${base_dir}/program_qf_fp"
      ;;
      smtlib_qf_fp*)
@@ -83,6 +87,9 @@ function get_invocation_info() {
       ;;
     program_qf_fp*)
       echo "${INVOCATIONS_DIR}/program_qf_fp/program_qf_fp.yml"
+    ;;
+    all_program_qf_fp*)
+      echo "${INVOCATIONS_DIR}/program_qf_fp/program_qf_fp_sat_600.yml"
     ;;
     *)
       echo "Unrecognised bset \"${bset}\""
@@ -109,10 +116,10 @@ function get_solver_config() {
   case "${solver}" in
     z3)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/z3_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/z3_docker_generic_600.yml"
         ;;
         *)
@@ -122,10 +129,10 @@ function get_solver_config() {
     ;;
     mathsat5)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/mathsat5_qf_fp_qf_bvfp_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/mathsat5_qf_fp_qf_bvfp_docker_generic_600.yml"
         ;;
         *)
@@ -135,10 +142,10 @@ function get_solver_config() {
     ;;
     cvc5)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/cvc5_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/cvc5_docker_generic_600.yml"
         ;;
         *)
@@ -148,10 +155,10 @@ function get_solver_config() {
     ;;
     bitwuzla)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/bitwuzla_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/bitwuzla_docker_generic_600.yml"
         ;;
         *)
@@ -161,10 +168,10 @@ function get_solver_config() {
     ;;
     colibri)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/colibri_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/colibri_docker_generic_600.yml"
         ;;
         *)
@@ -174,10 +181,10 @@ function get_solver_config() {
     ;;
     jfs)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/jfs_lf_fail_fast_smart_seeds_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/jfs_lf_fail_fast_smart_seeds_docker_generic_600.yml"
         ;;
         *)
@@ -187,7 +194,7 @@ function get_solver_config() {
     ;;
     xsat)
       case "${bset}" in
-        program_qf_fp*)
+        program_qf_fp*|all_program_qf_fp*)
           # Not supported by XSat.
           echo "SKIP"
         ;;
@@ -204,10 +211,10 @@ function get_solver_config() {
     ;;
     gosat)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/gosat_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/gosat_docker_generic_600.yml"
         ;;
         *)
@@ -217,10 +224,10 @@ function get_solver_config() {
     ;;
     optsat)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/optsat_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/optsat_docker_generic_600.yml"
         ;;
         *)
@@ -230,10 +237,10 @@ function get_solver_config() {
     ;;
     optsat_nsga2)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/optsat_nsga2_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/optsat_nsga2_docker_generic_600.yml"
         ;;
         *)
@@ -243,10 +250,10 @@ function get_solver_config() {
     ;;
     optsat_soeacov)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/optsat_soeacov_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/optsat_soeacov_docker_generic_600.yml"
         ;;
         *)
@@ -256,10 +263,10 @@ function get_solver_config() {
     ;;
     optsat_soeadis)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/optsat_soeadis_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/optsat_soeadis_docker_generic_600.yml"
         ;;
         *)
@@ -269,10 +276,10 @@ function get_solver_config() {
     ;;
     optsat_no_preprocess)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/optsat_no_preprocess_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/optsat_no_preprocess_docker_generic_600.yml"
         ;;
         *)
@@ -282,7 +289,7 @@ function get_solver_config() {
     ;;
     ol1v3r)
       case "${bset}" in
-        program_qf_fp*)
+        program_qf_fp*|all_program_qf_fp*)
           # Not supported by XSat.
           echo "SKIP"
         ;;
@@ -299,10 +306,10 @@ function get_solver_config() {
     ;;
     optsatBitwuzla)
       case "${bset}" in
-        program_qf_fp|smtlib_qf_fp)
+        program_qf_fp|smtlib_qf_fp|all_program_qf_fp)
           echo "${CONFIG_ROOT}/optsatBitwuzla_docker_generic.yml"
         ;;
-        program_qf_fp_600|smtlib_qf_fp_600)
+        program_qf_fp_600|smtlib_qf_fp_600|all_program_qf_fp_600)
           echo "${CONFIG_ROOT}/optsatBitwuzla_docker_generic_600.yml"
         ;;
         *)
@@ -312,7 +319,7 @@ function get_solver_config() {
     ;;
     coral)
       case "${bset}" in
-        program_qf_fp*)
+        program_qf_fp*|all_program_qf_fp*)
           # Not supported by XSat.
           echo "SKIP"
         ;;

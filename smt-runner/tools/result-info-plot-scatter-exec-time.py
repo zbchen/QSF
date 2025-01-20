@@ -47,9 +47,9 @@ def main(args):
     parser.add_argument('--base', type=str, default="")
     parser.add_argument('--point-size', type=float, default=5, dest='point_size')
     parser.add_argument('--title-switch', dest="title_switch", default=False, action='store_true')
-    parser.add_argument('--title-font-size', dest='title_font_size', default=14, type=int)
-    parser.add_argument('--label-font-size', dest='label_font_size', default=12, type=int)
-    parser.add_argument('--tick-font-size', dest='tick_font_size', default=10, type=int)
+    parser.add_argument('--title-font-size', dest='title_font_size', default=16, type=int)
+    parser.add_argument('--label-font-size', dest='label_font_size', default=14, type=int)
+    parser.add_argument('--tick-font-size', dest='tick_font_size', default=12, type=int)
     parser.add_argument('--annotate-font-size', dest='annotate_font_size', default=20, type=int)
     parser.add_argument('--annotate-size', dest='annotate_size', default=30, type=int)
     parser.add_argument('--allow-merge-failures',
