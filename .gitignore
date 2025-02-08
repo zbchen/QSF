@@ -2,16 +2,17 @@
 *.out
 
 # *tar.gz,*rar
-#program_qf_fp.tar.gz
-#smtlib_qf_fp.tar.gz
 QF_NIA_SAT.rar
 QF_NRA_SAT.rar
+program_qf_fp.tar.gz
 
 # benchmarks
 data/benchmarks/program_qf_fp/
 data/benchmarks/smtlib_qf_fp/
 data/benchmarks/smtlib_qf_nia/
 data/benchmarks/smtlib_qf_nra/
+#data/benchmarks/QF_NIA_SAT.rar
+#data/benchmarks/QF_NRA_SAT.rar
 
 # dic
 result_apk/
