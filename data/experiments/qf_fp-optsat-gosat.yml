@@ -1,0 +1,14 @@
+misc: {backend: Docker}
+results:
+- {backend_timeout: false, benchmark: griggio/fmcad12/test_v5_r5_vr5_c1_s2800.smt2,
+  exit_code: 0, expected_sat: sat, is_trivial: false, out_of_memory: false, sat: sat,
+  stderr_log_file: /workdir-177/stderr.log.txt, stdout_log_file: /workdir-177/stdout.log.txt,
+  sys_cpu_time: 0.02, user_cpu_time: 0.26, wallclock_time: 3.562755819002632, working_directory: /workdir-177}
+- {backend_timeout: false, benchmark: griggio/fmcad12/test_v7_r12_vr10_c1_s30410.smt2,
+  exit_code: 0, expected_sat: sat, is_trivial: false, out_of_memory: false, sat: sat,
+  stderr_log_file: /workdir-216/stderr.log.txt, stdout_log_file: /workdir-216/stdout.log.txt,
+  sys_cpu_time: 0.01, user_cpu_time: 0.62, wallclock_time: 4.531196971991449, working_directory: /workdir-216}
+- {backend_timeout: false, benchmark: griggio/fmcad12/test_v7_r17_vr10_c1_s8773.smt2,
+  exit_code: 0, expected_sat: sat, is_trivial: false, out_of_memory: false, sat: sat,
+  stderr_log_file: /workdir-244/stderr.log.txt, stdout_log_file: /workdir-244/stdout.log.txt,
+  sys_cpu_time: 0.02, user_cpu_time: 1.23, wallclock_time: 2.2397113049955806, working_directory: /workdir-244}

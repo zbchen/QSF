@@ -1,0 +1,19 @@
+# vim: set sw=2 ts=2 softtabstop=2 expandtab:
+runner: Z3
+runner_config:
+  # This is the tool_path inside the container
+  tool_path: "/bin/bash" # FIXME
+  max_memory: 4096
+  max_time: 5
+  additional_args: []
+  backend:
+    name: "Docker"
+    config:
+      # KLEE Docker image
+      image: "ubuntu-cxx-dev:14.04"
+      skip_tool_check: True # Faster
+      # Use same UID/GID inside container as outside so the container
+      # can write to our files.
+      user: "$HOST_USER"
+      docker_stats_on_exit_shim: true
+      memory_swappiness: 10

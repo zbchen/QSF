@@ -1,0 +1,37 @@
+# vim: set sw=2 ts=2 softtabstop=2 expandtab:
+runner: Coral
+runner_config:
+  # This is the tool_path inside the container
+  tool_path: "/home/user/smt2coral/coral.py"
+  max_memory: 10240 # 10 GiB
+  max_time: 600 # 15 minutes
+  additional_args:
+    - "--solver=PSO_OPT4J"
+    # Use realpaver interval solver
+    - "--enableIntervalBasedSolver"
+    - "--realPaverLocation=/home/user/realpaver/realpaver-0.4/bin/realpaver"
+    # Provided by Mateus Borges
+    - "--cacheSolutions=false"
+    - "--simplifyUsingIntervalSolver=false"
+    - "--pcCanonicalization=false"
+    - "--removeSimpleEqualities=false"
+    - "--toggleValueInference=false"
+    - "--nIterationsPSO=600"
+    # Try different seedss
+    - "--seed=0"
+      # Iterate through seeds until a resource is exhausted.
+    - "--seed-iter=-1"
+  backend:
+    name: "Docker"
+    config:
+      image: "dockerqsf/coral-2015:ubuntu1804"
+      skip_tool_check: True # Faster
+      # Use same UID/GID inside container as outside so the container
+      # can write to our files.
+      user: "$HOST_USER"
+      docker_stats_on_exit_shim: true
+      memory_swappiness: 1 # Limit swapping as much as possible but without completely disabling it
+      # Try to avoid stdout being dropped
+      stdout_and_stderr_bypass: true
+
+
