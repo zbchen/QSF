@@ -4,7 +4,7 @@ This is the artifact of QSF. You can download the repository to your local compu
 
 # `data`
 
-This directory contains the experiment data, solver configurations, and benchmark selection.
+This directory contains the experiment data , solver configurations, and benchmark selection.
 
 
 # `smt-runner`

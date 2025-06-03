@@ -10,7 +10,21 @@ of the solver. See `solver_configs/generic/README.md`.
 To run experiments run the `0-run_experiments.sh` script.
 Note before running this you need to have:
 
-1. Generated all the Docker images for the solvers (see `../../solvers/README.md`).
+1. Generated all the Docker images for the solvers. Just pull it down directly from Docker Hub.
+
+```
+docker pull dockerqsf/z3-4.6.0:ubuntu1804
+docker pull dockerqsf/cvc5-1.2:ubuntu1804
+docker pull dockerqsf/mathsat-5.5.1:ubuntu1804
+docker pull dockerqsf/bitwuzla-1.0:ubuntu1804
+docker pull dockerqsf/colibri-2017:ubuntu1804
+docker pull dockerqsf/coral-2015:ubuntu1804
+docker pull dockerqsf/jfs-2019:ubuntu1804
+docker pull dockerqsf/xsat-2016:ubuntu1804
+docker pull dockerqsf/gosat-2017:ubuntu1804
+docker pull dockerqsf/qsat-2024:ubuntu1804
+```
+
 2. Install the dependencies of smt-runner (see `../../smt-runner/README.md`).
 
 ## Post-processing results

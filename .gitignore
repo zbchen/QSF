@@ -16,6 +16,7 @@ data/benchmarks/smtlib_qf_nra/
 #data/benchmarks/QF_NRA_SAT.rar
 
 # dic
+.idea
 result_apk/
 runs/
 build/

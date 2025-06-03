@@ -13,13 +13,13 @@ If the image is pulled successfully, please check there is an image named apsecp
 ```sh
 $ sudo docker images
 REPOSITORY                TAG          IMAGE ID       CREATED         SIZE
-dockerqsf/fpse            qsf          96c0bf070ed1   4 minutes ago   20.1GB
+dockerqsf/fpse            1.0          5798050b158e   6 months ago    20.2GB
 ```
-
+5798050b158e
 
 Start to run the container in interactive mode.
 ```sh
-$ sudo docker run -it dockerqsf/fpse:qsf bash
+$ sudo docker run -it dockerqsf/fpse:1.0 bash
 ```
 
 # Obtain experimental results
