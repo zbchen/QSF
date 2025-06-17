@@ -22,6 +22,7 @@ runs/
 build/
 install/
 solvers/
+solvers-images/
 script/
 program_qf_fp_nobitwise/
 program-qf_fp_600_nobitwise/
