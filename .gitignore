@@ -4,8 +4,8 @@
 # *tar.gz,*rar
 QF_NIA_SAT.rar
 QF_NRA_SAT.rar
-program_qf_fp.tar.gz
-smtlib_qf_fp.tar.gz
+#program_qf_fp.tar.gz
+#smtlib_qf_fp.tar.gz
 
 # benchmarks
 data/benchmarks/program_qf_fp/
