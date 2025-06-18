@@ -24,5 +24,5 @@ docker pull dockerqsf/coral-2015:ubuntu1804
 docker pull dockerqsf/jfs-2019:ubuntu1804
 docker pull dockerqsf/xsat-2016:ubuntu1804
 docker pull dockerqsf/gosat-2017:ubuntu1804
-docker pull dockerqsf/qsat-2024:ubuntu1804
+docker pull dockerqsf/optsat-2024:ubuntu1804
 ```
