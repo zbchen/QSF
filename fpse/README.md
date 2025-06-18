@@ -5,35 +5,39 @@ We have deployed the experimental environment on docker. Please pre install dock
 # Download
 
 Download docker image:
+
 ```sh
-$ sudo docker pull dockerqsf/fpse:1.0
+$ docker pull dockerqsf/fpse:ubuntu1804
 ```
 
 If the image is pulled successfully, please check there is an image named apsecpaper/apsecpaper exists.
+
 ```sh
-$ sudo docker images
+$ docker images
 REPOSITORY                TAG          IMAGE ID       CREATED         SIZE
-dockerqsf/fpse            1.0          5798050b158e   6 months ago    20.2GB
+dockerqsf/fpse            ubuntu1804   a854909a1719   5 minutes ago   13.8GB
 ```
-5798050b158e
+
 
 Start to run the container in interactive mode.
+
 ```sh
-$ sudo docker run -it dockerqsf/fpse:1.0 bash
+$ docker run -it dockerqsf/fpse:ubuntu1804
 ```
 
 # Obtain experimental results
 
-Our experiments were performed on a server with Intel(R) Xeon(R) Platinum 8269CY CPU (3.10GHz) and the operating system is Ubuntu 18.04 LTS. 
+Our experiments were performed on an Intel(R) Xeon(R) Gold 6458Q 128-core CPU @ 3.10GHz and the operating system is Ubuntu 18.04 LTS. 
 
 To obtain the results, a machine with similar CPUs is required. Moreover, our experiments were run in 60 parallel.
 
-## Analyze a program in Benchmark
+## Analyze a program
 
-Navigate to `/home/aaa/analysis/benchmark` and list the contents.
+Navigate to `/home/aaa/fp-solver/analysis`. There are five experiments in total, which are carried out in `exp0`, `exp1`, `exp2`, `exp3` and `exp4` respectively.
+The process of analyzing the program is shown in `exp0`.
 
 ```sh
-$ cd /home/aaa/analysis/benchmark
+$ cd /home/aaa/fp-solver/analysis/exp0
 ```
 
 You need to set the parameters to run the script `run_solver.sh`: `./run_solver.sh [work_path] [file_name] [solver_type] [search_type]`, where
@@ -52,7 +56,7 @@ $ ./run_solver.sh instances gsl_acosh qsf dfs
 After running, log and test cases are generated in the corresponding directory, you can read the log as follow:
 
 ```sh
-$ vi instances/'gsl_acosh&qsf&bfs.runlog' 
+$ vim instances/'gsl_acosh&qsf&bfs.runlog' 
 ```
 
 ```sh
@@ -92,12 +96,10 @@ Total exec time: 1.098616e+04 ms
 We can get the coverage information by running the script:
 
 ```sh
-$ cd /home/aaa/analysis/benchmark
 $ ./repaly.sh
 ```
 
 ```sh
-
 ......# some info
      Running ==== > instances&gsl_acosh&qsf&bfs_output/
 ====  Replay Ktest ====
@@ -146,20 +148,20 @@ invhyp.c: No such file or directory
 
 ```
 
-Coverage information can be found in `res_all.txt`. The three columns are the name of benchmark, the code coverage, covered statements, covered branches, and the total execution time, respectively.
+Coverage information can be found in `res_all_0.txt`. The three columns are the name of benchmark, the code coverage, covered statements, covered branches, and the total execution time, respectively.
 
 ```sh
-$ cat res_all_60.txt
+$ cat res_all_0.txt
 ```
 
 ```
 instances&gsl_acosh&qsf&bfs_output/ , 100.0 , 11, 7, 12
 ```
 
-Coverage trend information can be found in `cov_trend.txt`. `TestCase` is the benchmark and configuration information. Each row below has three columns showing the solving time, code coverage, covered statements, covered branches.
+Coverage trend information can be found in `cov_trend_0.txt`. `TestCase` is the benchmark and configuration information. Each row below has three columns showing the solving time, code coverage, covered statements, covered branches.
 
 ```sh
-$ cat cov_trend_60.txt
+$ cat cov_trend_0.txt
 ```
 
 ```
@@ -179,7 +181,7 @@ The machine used in our experiments has 80 cores and 192GB memory. Before runnin
 The execution time and solving time settings in the `run_solver.sh` script are 3600s and 60s respectively. This is a long execution time, and you can enter the script and modify it to your own needs.
 
 ```sh
-$ vi run_solver.sh
+$ vim run_solver.sh
 ```
 
 ```sh
@@ -192,7 +194,7 @@ SOLVER_TIME=60
 You can also modify the parallel quantity in the script:
 
 ```sh
-$ vi multi_process.sh
+$ vim multi_process.sh
 ```
 
 ```sh
@@ -206,4 +208,3 @@ Then you can use `nohup python3 multi_process.py &` to execute all benchmarks in
 ```sh
 $ nohup python3 multi_process.py &
 ```
-
