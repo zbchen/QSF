@@ -24,9 +24,19 @@ install/
 solvers/
 solvers-images/
 script/
-program_qf_fp_nobitwise/
-program-qf_fp_600_nobitwise/
 portfolio_bitwuzla_jfs_lf_fail_fast_smart_seeds/
+
+data/experiments/merged/program_qf_fp_nobitwise
+data/experiments/merged/program_qf_fp_600_nobitwise
+data/experiments/solver_configs/generic/model_validate
+data/experiments/solver_configs/generic/coral_avm_docker_generic.yml
+data/experiments/solver_configs/generic/jfs_lf_fail_fast_docker_generic.yml
+data/experiments/solver_configs/generic/jfs_pf_fail_fast_docker_generic.yml
+data/experiments/solver_configs/generic/mathsat5_plain_docker_generic.yml
+data/experiments/solver_configs/generic/mathsat5_qf_bv_docker_generic.yml
+data/experiments/solver_configs/generic/optsat_soea_docker_generic.yml
+data/experiments/solver_configs/generic/README.md
+data/experiments/solver_configs/mars
 
 
 00-run_experiments.sh
