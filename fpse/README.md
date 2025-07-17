@@ -10,7 +10,7 @@ Download docker image:
 $ docker pull dockerqsf/fpse:ubuntu1804
 ```
 
-If the image is pulled successfully, please check there is an image named apsecpaper/apsecpaper exists.
+If the image is pulled successfully, please check there is an image named dockerqsf/fpse exists.
 
 ```sh
 $ docker images
@@ -44,19 +44,19 @@ You need to set the parameters to run the script `run_solver.sh`: `./run_solver.
 
 - work_path: The path of program file location.
 - file_name: The program file name.
-- solver_type: The solving modes, e.g. (`z3`, `bitwuzla`, `mathsat5`,`cvc5`), (`colibri`), Search(`jfs`,`gosat`,`qsf`). The bold fields are setting parameters.
+- solver_type: The solving modes, e.g. (`z3`, `bitwuzla`, `mathsat5`,`cvc5`). The bold fields are setting parameters.
 - search_type: The search modes, e.g. `bfs` and `dfs`.
 
-If you want to obtain experimental results for a single test program, e.g., `instances/gsl_acosh.c`. For example, obtain the experimental results of `qsf+dfs`.
+If you want to obtain experimental results for a single test program, e.g., `instances/gsl_acosh.c`. For example, obtain the experimental results of `qsf+bfs`.
 
 ```sh
-$ ./run_solver.sh instances gsl_acosh qsf dfs
+$ ./run_solver.sh instances gsl_acosh qsf bfs
 ```
 
 After running, log and test cases are generated in the corresponding directory, you can read the log as follow:
 
 ```sh
-$ vim instances/'gsl_acosh&qsf&bfs.runlog' 
+$ vim instances/gsl_acosh\&qsf\&bfs.runlog 
 ```
 
 ```sh
